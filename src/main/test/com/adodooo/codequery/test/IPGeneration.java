@@ -1,21 +1,20 @@
 package com.adodooo.codequery.test;
 
-import com.adodooo.codequery.domain.model.Mobile;
-import com.adodooo.codequery.test.Generation;
+import com.adodooo.codequery.domain.model.IP;
 
-
-public class MobileGeneration extends Generation{
+public class IPGeneration extends Generation{
 
 	@Override
 	public Class<?> getTargetClazz() {
-		return Mobile.class;
+		return IP.class;
 	}
 	
+	
 	public static void main(String[] args) throws Exception {
-		Generation generation = new MobileGeneration();
+		Generation generation = new IPGeneration();
 		generation.generateServiceInteface();
 		generation.generateServiceImpl();
 	}
-
+	
 
 }

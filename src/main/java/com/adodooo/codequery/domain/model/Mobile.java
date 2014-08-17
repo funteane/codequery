@@ -8,8 +8,8 @@ import javax.persistence.Transient;
 import com.dreammore.framework.codegeneration.model.Comment;
 import com.dreammore.framework.common.model.BaseIncEntity;
 
-//{"Mobile":"13661368411","QueryResult":"True","TO":"�й��ƶ�","Corp":"�й��ƶ�",
-//"Province":"����","City":"����","AreaCode":"010","PostCode":"100000","VNO":"","Card":""}
+//{"Mobile":"13661368411","QueryResult":"True","TO":"中国移动","Corp":"中国移动",
+//"Province":"北京","City":"北京","AreaCode":"010","PostCode":"100000","VNO":"","Card":""}
 
 @Entity
 @Table
@@ -17,33 +17,39 @@ public class Mobile extends BaseIncEntity implements Cloneable {
 
 	private static final long serialVersionUID = -1989110817025501122L;
 
-	@Comment(value = "�ֻ�����", searchable = true)
+	@Comment(value = "手机号码", searchable = true)
 	@Transient
 	private String phoneCode;
 
-	@Comment(value = "�������", searchable = true)
+	@Comment(value = "网络号码", searchable = true)
 	@Column(name = "NET_CODE", unique = true)
 	private String netCode;
 
-	@Comment(value = "����ʡ��")
+	@Comment(value = "归属省份")
 	@Column(name = "PRIVINCE")
 	private String province;
 
-	@Comment(value = "��������")
+	@Comment(value = "归属地市")
 	@Column(name = "CITY")
 	private String city;
 
-	@Comment(value = "����")
+	@Comment(value = "区号")
 	@Column(name = "AREA_CODE")
 	private String areaCode;
 
-	@Comment(value = "��������")
+	@Comment(value = "邮政编码")
 	@Column(name = "POST_CODE")
 	private String postCode;
 
-	@Comment(value = "������˾")
+	@Comment(value = "所属公司")
 	@Column(name = "CORPRATION")
 	private String corpration;
+	
+	@Column(name = "REGION")
+	private String region;
+	
+	@Column(name = "PLACE_NAME")
+	private String placeName;
 
 	private static Mobile instance = new Mobile();
 
@@ -110,6 +116,22 @@ public class Mobile extends BaseIncEntity implements Cloneable {
 	public void setNetCode(String netCode) {
 		this.netCode = netCode;
 	}
+	
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
 
 	@Override
 	public Mobile clone() throws CloneNotSupportedException {
@@ -121,10 +143,9 @@ public class Mobile extends BaseIncEntity implements Cloneable {
 		return "Mobile [phoneCode=" + phoneCode + ", netCode=" + netCode
 				+ ", province=" + province + ", city=" + city + ", areaCode="
 				+ areaCode + ", postCode=" + postCode + ", corpration="
-				+ corpration + "]";
+				+ corpration + ", region=" + region + "]";
 	}
-	
-	
 
+	
+	
 }
-

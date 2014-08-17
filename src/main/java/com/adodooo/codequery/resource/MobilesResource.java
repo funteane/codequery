@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adodooo.codequery.application.service.IQueryService;
+import com.adodooo.codequery.common.JSONSimpler;
 import com.adodooo.codequery.common.RegionUtil;
 import com.adodooo.codequery.domain.model.Mobile;
 import com.adodooo.codequery.domain.service.IMobileService;
@@ -19,17 +20,23 @@ import com.dreammore.framework.common.ServiceFactory;
 import com.dreammore.framework.common.utils.Tools;
 
 //@Component
-@Path("m/{phoneCode}")
-public class MobileResource {
+@Path("mobiles/{phoneCode}")
+public class MobilesResource {
 	
 	private Logger logger = Logger.getLogger(getClass());
 	
+	private final static String EMPTY_ELEMENT = "{}";
+	
+//	@Autowired
+//	private IQueryService<Mobile> showJiQueryService;
+//	@Resource
+//	private IQueryService<Mobile> ip138MobileQueryService;
 	@Autowired
 	private IMobileService mobileService;
 	
 	@SuppressWarnings("unchecked")
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String getMobileInfo(@PathParam("phoneCode") String phoneCode) {
 		Mobile mobile = null;
 		try {
@@ -37,7 +44,7 @@ public class MobileResource {
 			mobile = mobileService.getMobile(phoneCode);
 			mobile.setPhoneCode(phoneCode);
 			if (!Tools.empty(mobile)) {
-				return mobile.getRegion();
+				return JSONSimpler.toJson(mobile);
 			}
 			
 		} catch (Exception e) {
@@ -54,7 +61,7 @@ public class MobileResource {
 				mobile.setPlaceName(place);
 				mobile.setRegion(RegionUtil.PLACE_MAP.get(place));
 				mobileService.saveOrUpdate(mobile);
-				return mobile.getRegion();
+				return JSONSimpler.toJson(mobile);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -70,14 +77,14 @@ public class MobileResource {
 				mobile.setRegion(RegionUtil.PLACE_MAP.get(place));
 				mobileService.saveOrUpdate(mobile);
 				mobileService.saveOrUpdate(mobile);
-				return mobile.getRegion();
+				return JSONSimpler.toJson(mobile);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		
 		
-		return null;
+		return EMPTY_ELEMENT;
 		
 		
 		
